@@ -1,22 +1,42 @@
 export default {
   COLORS: {
     GRAY_100: "#E1E1E6",
-    GRAY_200: "#C4C4CC",
     GRAY_300: "#8D8D99",
-    GRAY_400: "#7C7C8A",
     GRAY_500: "#505059",
     GRAY_600: "#323238",
     GRAY_700: "#29292E",
     GRAY_800: "#202024",
-    GRAY_900: "#121214",
-    GRAY_950: "#09090A",
 
-    BLUE_200: "#86E9FF",
-    BLUE_300: "#42D3FF",
-    BLUE_400: "#02799D",
-    BLUE_500: "#065E7C",
-    BLUE_600: "#0A3442",
+    LIGHT_100: "#FFFFFF",
+    LIGHT_200: "#FFFAF1",
+    LIGHT_300: "#E1E1E6",
+    LIGHT_400: "#C4C4CC",
+    LIGHT_500: "#7C7C8A",
+    LIGHT_600: "#76797B",
+    LIGHT_700: "#4D585E",
 
-    RED_200: "#F75A68"
-  }
-};
+    DARK_100: "#000405",
+    DARK_200: "#00070A",
+    DARK_300: "#000204",
+    DARK_400: "#000A0F",
+    DARK_500: "#000C12",
+    DARK_600: "#00111A",
+    DARK_700: "#001119",
+    DARK_800: "#0D161B",
+    DARK_900: "#0D1D25",
+    DARK_1000: "#192227",
+
+    /* Tints */
+    TOMATO_100: "#750310",
+    TOMATO_200: "#92000E",
+    TOMATO_300: "#AB222E",
+    TOMATO_400: "#AB4D55",
+
+    CARROT_100: "#FBA94C",
+
+    MINT_100: "#04D361",
+
+    CAKE_100: "#065E7C",
+    CAKE_200: "#82F3FF",
+  },
+}
