@@ -1,12 +1,7 @@
-
+import { SignIn } from "./pages/SignIn"
 
 function App() {
-
-  return (
-    <>
-      <h1>Food Explorer by Caião</h1>
-    </>
-  )
+  return <SignIn />
 }
 
 export default App
