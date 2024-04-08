@@ -1,11 +1,11 @@
 import styled from "styled-components"
 import { DEVICE_BREAKPOINTS } from "../../styles/deviceBreakpoints"
 
-export const Button = styled.button`
+export const Container = styled.button`
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   line-height: 2rem;
-  font-size: 2rem;
+  font-size: 1.167rem;
 
   background-color: ${({ theme }) => theme.COLORS.TOMATO_100};
   color: ${({ theme }) => theme.COLORS.LIGHT_100};

@@ -1,5 +1,10 @@
-import { Button } from "./styles"
+import { Container } from "./styles"
 
-export function Button({ icon: Icon, ...rest }) {
-  return <Button {...rest}>{Icon && <Icon size={20} />}</Button>
+export function Button({ title, icon: Icon, ...rest }) {
+  return (
+    <Container {...rest}>
+      {Icon && <Icon size={20} />}
+      {title}
+    </Container>
+  )
 }

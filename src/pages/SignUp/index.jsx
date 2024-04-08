@@ -4,7 +4,7 @@ import { Label } from "../../components/Label/styles"
 import { Input } from "../../components/Input"
 import { Button } from "../../components/Button"
 
-export function SignIn() {
+export function SignUp() {
   return (
     <Container>
       <div>
@@ -12,9 +12,17 @@ export function SignIn() {
       </div>
       <section>
         <Form>
-          <h1>Faça Login</h1>
+          <h1>Crie sua conta</h1>
           <div>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="name">Seu nome</Label>
+            <Input
+              placeholder="Exemplo: Maria da Silva"
+              type="text"
+              id="name"
+            />
+          </div>
+          <div>
+            <Label htmlFor="email">Seu e-mail</Label>
             <Input
               placeholder="Exemplo: exemplo@exemplo.com"
               type="email"
@@ -22,15 +30,15 @@ export function SignIn() {
             />
           </div>
           <div>
-            <Label htmlFor="senha">Senha</Label>
+            <Label htmlFor="password">Sua senha</Label>
             <Input
-              placeholder="Exemplo: exemplo@exemplo.com"
+              placeholder="No mínimo 6 caracteres"
               type="password"
-              id="senha"
+              id="password"
             />
           </div>
-          <Button title="Teste" type="submit" />
-          <a href="http://">Criar uma conta</a>
+          <Button title="Criar conta" type="submit" />
+          <a href="http://">Já possuo uma conta, fazer login.</a>
         </Form>
       </section>
     </Container>
