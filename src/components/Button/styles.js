@@ -14,10 +14,18 @@ export const Container = styled.button`
   border: none;
   border-radius: 5px;
 
+  display: flex;
+  gap: 0.667rem;
+
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
     padding: 0.75rem 2rem;
     border-radius: 0.313rem;
     font-size: 0.875rem;
     line-height: 1.5rem;
+    gap: 0.5rem;
+  }
+
+  > svg {
+    font-size: 1.5rem;
   }
 `

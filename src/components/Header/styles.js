@@ -20,4 +20,15 @@ export const Container = styled.header`
       max-width: 11.5rem;
     }
   }
+
+  /* hidden contents on mobile */
+  > button:nth-child(4),
+  div:nth-child(3) {
+    /* hidden on mobile */
+    display: none;
+
+    @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
+      display: flex;
+    }
+  }
 `

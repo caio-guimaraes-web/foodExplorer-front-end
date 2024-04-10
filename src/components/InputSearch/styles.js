@@ -21,12 +21,13 @@ export const Container = styled.div`
       padding: 0.75rem 0.875rem 0.75rem 3rem;
       border-radius: 0.667rem;
       height: 3rem;
-      border: 1px solid #fff;
+      /* border: 1px solid #fff; */
     }
   }
   > svg {
     position: absolute;
     font-size: 1.5rem;
     margin-left: 0.8rem;
+    color: ${({ theme }) => theme.COLORS.LIGHT_400};
   }
 `
