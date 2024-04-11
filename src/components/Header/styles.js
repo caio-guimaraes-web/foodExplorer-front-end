@@ -7,6 +7,7 @@ export const Container = styled.header`
   width: 100%;
   padding: 4.667rem 2.333rem 2rem;
   align-items: center;
+  justify-content: space-between;
   gap: 32px;
 
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {

@@ -5,6 +5,7 @@ import logoFoodExplorer from "../../assets/food_explorer_g.svg"
 import { InputSearch } from "../InputSearch"
 import { Button } from "../../components/Button"
 import { ButtonOut } from "../ButtonOut"
+import { ButtonMobileOrder } from "../ButttonMobileOrder"
 
 export function Header() {
   return (
@@ -18,6 +19,7 @@ export function Header() {
         title="Busque por pratos ou Ingredientes"
       />
       <Button title="Pedidos(0)" icon={Receipt} />
+      <ButtonMobileOrder icon={Receipt} />
       <ButtonOut icon={SignOut} />
     </Container>
   )
