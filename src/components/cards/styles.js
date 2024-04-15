@@ -1,8 +1,8 @@
 import styled from "styled-components"
 
 export const Container = styled.div`
-  width: 210px;
-  height: 292px;
+  max-width: 210px;
+  min-height: 292px;
   background: darkblue;
   padding: 2rem;
 
@@ -15,7 +15,8 @@ export const Container = styled.div`
   border: 1px solid ${({ theme }) => theme.COLORS.DARK_300};
   background: ${({ theme }) => theme.COLORS.DARK_200};
 
-  > div {
+  /* img container */
+  > div:nth-child(1) {
     max-width: 88px;
     height: auto;
 
@@ -45,5 +46,30 @@ export const Container = styled.div`
     font-weight: 400;
     font-size: 1.333rem;
     line-height: 1.333rem;
+  }
+
+  /* count */
+  > div:nth-child(5) {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* gap: 1.167rem; */
+    gap: 1.5rem;
+
+    > button {
+      background: transparent;
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
+      border: 0;
+      font-size: 2.3rem;
+
+      min-width: 24px;
+      min-height: 24px;
+    }
+
+    > p {
+      font-size: 1.333rem;
+    }
   }
 `
