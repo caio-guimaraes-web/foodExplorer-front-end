@@ -8,6 +8,7 @@ export const Container = styled.div`
   height: 150px;
   max-height: 150px;
   margin-top: 1.2rem;
+  margin-bottom: 5.167rem;
 
   display: flex;
   flex-direction: column;
@@ -21,6 +22,7 @@ export const Container = styled.div`
     max-height: 406px;
     padding: 0 7.688rem;
     margin-top: 1.5rem;
+    margin-bottom: 3.875rem;
     align-content: unset;
     flex-wrap: unset;
     justify-content: unset;
