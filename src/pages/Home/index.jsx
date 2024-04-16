@@ -1,4 +1,5 @@
 import { Container, Section } from "./styles"
+import { SideMenu } from "../../components/SideMenu"
 import { Header } from "../../components/Header"
 import { BannerPrimary } from "../../components/BannerPrimary"
 
@@ -9,6 +10,7 @@ import { Footer } from "../../components/Footer"
 export function Home() {
   return (
     <Container>
+      <SideMenu />
       <Header />
       <BannerPrimary />
       <Section>
