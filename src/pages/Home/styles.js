@@ -6,7 +6,6 @@ export const Container = styled.main``
 export const Section = styled.section`
   width: 100%;
   height: auto;
-  background: midnightblue;
   padding: 0 0 2rem 2.333rem;
 
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
