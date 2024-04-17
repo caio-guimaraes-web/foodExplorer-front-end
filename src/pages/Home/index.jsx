@@ -1,17 +1,19 @@
 import { Container, Section } from "./styles"
-import { SideMenu } from "../../components/SideMenu"
 import { Header } from "../../components/Header"
+import { SideMenu } from "../../components/SideMenu"
 import { BannerPrimary } from "../../components/BannerPrimary"
 
 import { Card } from "../../components/cards"
-
 import { Footer } from "../../components/Footer"
+import { useState } from "react"
 
-export function Home() {
+export function Home({ onOpenMenu }) {
+  const [menuOpen, setMenuOpen] = useState(false)
+
   return (
     <Container>
-      <SideMenu />
-      <Header />
+      <SideMenu menuOpen={menuOpen} onCloseMenu={() => setMenuOpen(false)} />
+      <Header onOpenMenu={() => setMenuOpen(true)} />
       <BannerPrimary />
       <Section>
         <h3>Refeições</h3>

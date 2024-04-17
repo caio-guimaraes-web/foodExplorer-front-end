@@ -14,12 +14,37 @@ export const Container = styled.aside`
   top: 0;
   left: 0;
 
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+
+  &[data-menu-open="true"] {
+    transform: translateX(0);
+  }
+
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
     display: none;
   }
 
   > div {
     padding: 0 2.333rem;
+
+    > a {
+      font-family: "Poppins", sans-serif;
+      color: ${({ theme }) => theme.COLORS.LIGHT_300};
+      font-size: 2rem;
+      font-style: normal;
+      font-weight: 300;
+      line-height: 140%;
+      display: block;
+
+      margin-top: 36px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+    }
+
+    > div > input {
+      font-size: 1.333rem;
+    }
   }
 `
 
@@ -32,6 +57,7 @@ export const HeaderFake = styled.header`
   justify-content: start;
   gap: 16px;
   margin-bottom: 36px;
+  color: ${({ theme }) => theme.COLORS.LIGHT_300};
 
   > p {
     font-size: 1.75rem;

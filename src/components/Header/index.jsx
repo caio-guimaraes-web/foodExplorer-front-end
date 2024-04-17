@@ -7,10 +7,10 @@ import { Button } from "../../components/Button"
 import { ButtonOut } from "../ButtonOut"
 import { ButtonMobileOrder } from "../ButttonMobileOrder"
 
-export function Header() {
+export function Header({ onOpenMenu }) {
   return (
     <Container>
-      <ButtonMobile icon={List} />
+      <ButtonMobile icon={List} onClick={onOpenMenu} />
       <div>
         <img src={logoFoodExplorer} alt="ícone Food Explorer" />
       </div>

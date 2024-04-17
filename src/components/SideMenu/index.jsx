@@ -3,11 +3,11 @@ import { X, MagnifyingGlass } from "@phosphor-icons/react"
 import { ButtonMobile } from "../ButtonMobileMenu"
 import { InputSearch } from "../InputSearch"
 
-export function SideMenu() {
+export function SideMenu({ menuOpen, onCloseMenu }) {
   return (
-    <Container>
+    <Container data-menu-open={menuOpen}>
       <HeaderFake>
-        <ButtonMobile icon={X} />
+        <ButtonMobile icon={X} onClick={onCloseMenu} />
         <p>Menu</p>
       </HeaderFake>
       <div>
@@ -15,7 +15,8 @@ export function SideMenu() {
           icon={MagnifyingGlass}
           title="Busque por pratos ou Ingredientes"
         />
-        <h5>mais alguma</h5>
+        <a href="http://">Sair</a>
+        <hr />
       </div>
     </Container>
   )
