@@ -10,7 +10,7 @@ export const Container = styled.button`
   background: transparent;
   color: ${({ theme }) => theme.COLORS.LIGHT_300};
 
-  padding: 1rem 0;
+  padding: 1rem 0 0;
   border: none;
   border-radius: 5px;
 
@@ -24,6 +24,7 @@ export const Container = styled.button`
 
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
     font-weight: 700;
+    font-size: 1.5rem;
   }
 
   > svg {

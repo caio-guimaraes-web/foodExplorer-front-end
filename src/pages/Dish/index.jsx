@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Container, Section } from "./styles"
 import { Header } from "../../components/Header"
 import { SideMenu } from "../../components/SideMenu"
-import { CaretLeft } from "@phosphor-icons/react"
+import { CaretLeft, Receipt } from "@phosphor-icons/react"
 import { ButtonBack } from "../../components/ButtonBack"
 
 import prato_teste from "../../assets/img_foods/prato_teste.png"
@@ -34,7 +34,6 @@ export function Dish({ onOpenMenu }) {
           Rabanetes, folhas verdes e molho agridoce salpicados com gergelim. O
           pão naan dá um toque especial.
         </p>
-        <p>R$ 49,97</p>
 
         <div>
           <div>
@@ -42,7 +41,7 @@ export function Dish({ onOpenMenu }) {
             <p>{count}</p>
             <button onClick={increment}>+</button>
           </div>
-          <Button title="incluir" />
+          <Button title="pedir ∙ R$ 25,00" icon={Receipt} />
         </div>
       </Section>
       <Footer />
