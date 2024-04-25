@@ -25,10 +25,29 @@ export const Section = styled.section`
 
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
     flex-direction: row;
+    display: grid;
+    grid-template-areas:
+      "header header"
+      "img description1"
+      "img description2"
+      "img description3"
+      "img description4";
+    justify-content: center;
+    justify-items: start;
+  }
+  @media (min-width: ${DEVICE_BREAKPOINTS.XL}) {
+    max-width: 75%;
+    margin: 0 auto;
   }
 
+  /* Button back - voltar */
   > button:nth-child(1) {
     margin-right: auto;
+
+    @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
+      grid-area: header;
+      padding: 0;
+    }
   }
 
   /* img container */
@@ -38,6 +57,7 @@ export const Section = styled.section`
 
     @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
       max-width: 390px;
+      grid-area: img;
     }
 
     > img {
@@ -53,9 +73,10 @@ export const Section = styled.section`
     font-weight: 500;
     font-size: 2.253rem;
     line-height: 2rem;
+
     @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
       font-weight: 500;
-      font-size: 1.5rem;
+      font-size: 2.5rem;
       line-height: 140%;
     }
   }
@@ -67,14 +88,22 @@ export const Section = styled.section`
     font-size: 1.352rem;
 
     @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
+      font-family: "Poppins", sans-serif;
       color: ${({ theme }) => theme.COLORS.LIGHT_400};
-      font-size: 1rem;
-      line-height: 1.4rem;
+      font-size: 1.5rem;
+      line-height: 140%;
+      text-align: left;
     }
   }
 
+  /* section of tags */
+  > section {
+    display: flex;
+    gap: 1rem;
+  }
+
   /* count + include */
-  > div:nth-child(5) {
+  > div:nth-child(6) {
     width: 100%;
 
     display: flex;
@@ -85,6 +114,7 @@ export const Section = styled.section`
 
     @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
       flex-direction: row;
+      justify-content: flex-start;
     }
 
     /* count */
@@ -115,6 +145,9 @@ export const Section = styled.section`
       font-size: 1rem;
       > svg {
         font-size: 3rem;
+        @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
+          display: none;
+        }
       }
     }
   }

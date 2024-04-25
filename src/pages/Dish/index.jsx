@@ -7,6 +7,7 @@ import { ButtonBack } from "../../components/ButtonBack"
 
 import prato_teste from "../../assets/img_foods/prato_teste.png"
 
+import { Tag } from "../../components/Tag"
 import { Button } from "../../components/Button"
 import { Footer } from "../../components/Footer"
 
@@ -34,6 +35,12 @@ export function Dish({ onOpenMenu }) {
           Rabanetes, folhas verdes e molho agridoce salpicados com gergelim. O
           pão naan dá um toque especial.
         </p>
+        <section>
+          <Tag title="alface" />
+          <Tag title="feijão" />
+          <Tag title="linguiça" />
+          <Tag title="cannabis" />
+        </section>
 
         <div>
           <div>
