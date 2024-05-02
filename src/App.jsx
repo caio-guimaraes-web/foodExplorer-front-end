@@ -1,9 +1,10 @@
 /* import { SignUp } from "./pages/SignUp" */
 /* import { Home } from "./pages/Home" */
-import { Dish } from "./pages/Dish"
+/* import { Dish } from "./pages/Dish" */
+import { AddDish } from "./pages/AddDish"
 
 function App() {
-  return <Dish />
+  return <AddDish />
 }
 
 export default App
