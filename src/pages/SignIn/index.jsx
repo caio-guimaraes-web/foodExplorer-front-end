@@ -30,7 +30,7 @@ export function SignIn() {
             />
           </div>
           <Button title="Teste" type="submit" />
-          <a href="http://">Criar uma conta</a>
+          <Link to="/register">Criar uma conta</Link>
         </Form>
       </section>
     </Container>
