@@ -1,4 +1,5 @@
 import { Container, Form } from "./styles"
+import { Link, useNavigate } from "react-router-dom"
 import logoFoodExplorer from "../../assets/food_explorer_g.svg"
 import { Label } from "../../components/Label/styles"
 import { Input } from "../../components/Input"
@@ -29,7 +30,7 @@ export function SignIn() {
               id="senha"
             />
           </div>
-          <Button title="Teste" type="submit" />
+          <Button title="Entrar" type="submit" />
           <Link to="/register">Criar uma conta</Link>
         </Form>
       </section>

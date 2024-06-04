@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { api } from "../../services/api"
 import { Container, Form } from "./styles"
 import logoFoodExplorer from "../../assets/food_explorer_g.svg"
@@ -12,10 +12,12 @@ export function SignUp() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  /* const navigate = useNavigate() */
+  const navigate = useNavigate()
 
   function handleSignUp() {
     /* console.log(name, email, password) */
+    event.preventDefault()
+    console.log("handleSignUp called")
     if (!name || !email || !password) {
       return alert("Preencha todos os campos")
     }
@@ -24,7 +26,7 @@ export function SignUp() {
       .post("/users", { name, email, password })
       .then(() => {
         alert("Usuário cadastrado com sucesso!")
-        /* navigate("/") */
+        navigate("/")
       })
       .catch((error) => {
         if (error.response) {
@@ -41,7 +43,7 @@ export function SignUp() {
         <img src={logoFoodExplorer} alt="ícone Food Explorer" />
       </div>
       <section>
-        <Form>
+        <Form onSubmit={handleSignUp}>
           <h1>Crie sua conta</h1>
           <div>
             <Label htmlFor="name">Seu nome</Label>
@@ -70,7 +72,7 @@ export function SignUp() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <Button title="Criar conta" type="submit" onClick={handleSignUp} />
+          <Button type="submit" title="Criar conta" />
           <Link to="/">Já possuo uma conta, fazer login.</Link>
         </Form>
       </section>
