@@ -6,8 +6,10 @@ import { InputSearch } from "../InputSearch"
 import { Button } from "../../components/Button"
 import { ButtonOut } from "../ButtonOut"
 import { ButtonMobileOrder } from "../ButttonMobileOrder"
+import { useAuth } from "../../hooks/auth"
 
 export function Header({ onOpenMenu }) {
+  const { signOut } = useAuth()
   return (
     <Container>
       <ButtonMobile icon={List} onClick={onOpenMenu} />
@@ -20,7 +22,7 @@ export function Header({ onOpenMenu }) {
       />
       <Button title="Pedidos(0)" icon={Receipt} />
       <ButtonMobileOrder icon={Receipt} />
-      <ButtonOut icon={SignOut} />
+      <ButtonOut icon={SignOut} onClick={signOut} />
     </Container>
   )
 }
