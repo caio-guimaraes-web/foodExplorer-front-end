@@ -6,8 +6,14 @@
 
 import { Routes } from "./routes"
 
+import { AuthProvider } from "./hooks/auth"
+
 function App() {
-  return <Routes />
+  return (
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
+  )
 }
 
 export default App
