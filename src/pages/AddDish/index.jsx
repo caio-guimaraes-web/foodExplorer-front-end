@@ -46,6 +46,7 @@ export function AddDish({ onOpenMenu }) {
     }
   }
 
+  /* usa o método filter para criar uma nova lista de ingredientes que exclui o ingrediente no índice especificado. */
   function handleRemoveIngredient(indexToRemove) {
     setIngredient((prevState) =>
       prevState.filter((_, index) => index !== indexToRemove)
