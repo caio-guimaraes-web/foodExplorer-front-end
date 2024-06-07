@@ -28,6 +28,30 @@ export function AddDish({ onOpenMenu }) {
   /* open side menu mobile */
   const [menuOpen, setMenuOpen] = useState(false)
 
+  /* creating ingredient tags */
+  const [ingredient, setIngredient] = useState([])
+  const [newIngredient, setNewIngredient] = useState("")
+
+  function handleAddIngredient() {
+    if (newIngredient.trim() !== "") {
+      setIngredient((prevState) => [...prevState, newIngredient])
+      setNewIngredient("")
+    }
+  }
+
+  function handleKeyPress(event) {
+    if (event.key === "Enter") {
+      handleAddIngredient()
+      event.preventDefault()
+    }
+  }
+
+  function handleRemoveIngredient(indexToRemove) {
+    setIngredient((prevState) =>
+      prevState.filter((_, index) => index !== indexToRemove)
+    )
+  }
+
   return (
     <Container>
       <SideMenu menuOpen={menuOpen} onCloseMenu={() => setMenuOpen(false)} />
@@ -65,16 +89,21 @@ export function AddDish({ onOpenMenu }) {
             <div>
               <Label>Ingredientes</Label>
               <div>
-                <TagIngredients>
-                  Cebola <X />
-                </TagIngredients>
-                <TagIngredients>
-                  Alho <X />
-                </TagIngredients>
-
+                {ingredient.map((ingredient, index) => (
+                  <TagIngredients key={index}>
+                    {ingredient}
+                    <X onClick={() => handleRemoveIngredient(index)} />
+                  </TagIngredients>
+                ))}
                 <AddIngredients>
-                  <input type="text" placeholder="adicionar" />
-                  <Plus />
+                  <input
+                    type="text"
+                    placeholder="Adicionar"
+                    onChange={(e) => setNewIngredient(e.target.value)}
+                    value={newIngredient}
+                    onKeyPress={handleKeyPress}
+                  />
+                  <Plus onClick={handleAddIngredient} />
                 </AddIngredients>
               </div>
             </div>
@@ -86,10 +115,10 @@ export function AddDish({ onOpenMenu }) {
           </div>
           {/* 3a linha com a caixa de texto  */}
           <div>
-            <Label htmlFor="descreveprato">Preço</Label>
+            <Label htmlFor="descreveprato">Descrição do prato</Label>
             <DescrevePrato id="descreveprato" name="descricaoPrato" />
           </div>
-          <Button title="salvar alterações" type="submit" />
+          <Button title="criar prato" type="submit" />
         </Form>
       </Section>
       <Footer />
