@@ -21,20 +21,27 @@ import { Label } from "../../components/Label/styles"
 import { Input } from "../../components/Input"
 import { InputFile } from "../../components/InputFile"
 import { Button } from "../../components/Button"
-
 import { Footer } from "../../components/Footer"
+import { api } from "../../services/api" // Importando o componente API
 
 export function AddDish({ onOpenMenu }) {
-  /* open side menu mobile */
   const [menuOpen, setMenuOpen] = useState(false)
-
-  /* creating ingredient tags */
-  const [ingredient, setIngredient] = useState([])
   const [newIngredient, setNewIngredient] = useState("")
+  const [dishData, setDishData] = useState({
+    name: "",
+    category: "",
+    price: "",
+    description: "",
+    ingredients: [], // Adicionado para armazenar ingredientes
+    imageFile: null,
+  })
 
   function handleAddIngredient() {
     if (newIngredient.trim() !== "") {
-      setIngredient((prevState) => [...prevState, newIngredient])
+      setDishData((prevState) => ({
+        ...prevState,
+        ingredients: [...prevState.ingredients, newIngredient],
+      }))
       setNewIngredient("")
     }
   }
@@ -46,11 +53,84 @@ export function AddDish({ onOpenMenu }) {
     }
   }
 
-  /* usa o método filter para criar uma nova lista de ingredientes que exclui o ingrediente no índice especificado. */
   function handleRemoveIngredient(indexToRemove) {
-    setIngredient((prevState) =>
-      prevState.filter((_, index) => index !== indexToRemove)
-    )
+    setDishData((prevState) => ({
+      ...prevState,
+      ingredients: prevState.ingredients.filter(
+        (_, index) => index !== indexToRemove
+      ),
+    }))
+  }
+
+  function handleInputChange(event) {
+    const { name, value, type, files } = event.target
+    setDishData((prevState) => ({
+      ...prevState,
+      [name]: type === "file" ? files[0] : value,
+    }))
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault()
+
+    const jsonData = JSON.stringify({
+      name: dishData.name,
+      category: dishData.category,
+      price: dishData.price,
+      description: dishData.description,
+      ingredients: dishData.ingredients,
+    })
+
+    // Log the file name along with other data
+    console.log({
+      ...dishData,
+      imageFile: dishData.imageFile ? dishData.imageFile.name : null,
+    })
+
+    try {
+      const response = await api.post("/dish", jsonData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+
+      if (response.status !== 200) {
+        throw new Error("Erro ao adicionar prato.")
+      }
+
+      const result = await response.data
+      const dishId = result.id
+
+      console.log("Prato adicionado com sucesso!", result)
+
+      if (dishData.imageFile) {
+        await uploadImage(dishId, dishData.imageFile)
+      }
+    } catch (error) {
+      console.error("Erro ao adicionar prato:", error)
+    }
+  }
+
+  async function uploadImage(dishId, imageFile) {
+    const formData = new FormData()
+    formData.append("image", imageFile)
+
+    try {
+      const response = await api.patch(`/dish/img/${dishId}`, formData)
+
+      if (!response.status === 200) {
+        throw new Error("Erro ao enviar a imagem")
+      }
+    } catch (error) {
+      console.error("Erro ao enviar a imagem:", error)
+    }
+  }
+
+  function handleFileChange(event) {
+    setDishData({
+      ...dishData,
+      imageFile: event.target.files[0],
+    })
   }
 
   return (
@@ -59,38 +139,46 @@ export function AddDish({ onOpenMenu }) {
       <Header onOpenMenu={() => setMenuOpen(true)} />
       <Section>
         <ButtonBack title="voltar" icon={CaretLeft} />
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <h2>Adicionar prato</h2>
-          {/* linha com 3 inputs */}
           <div>
             <InputFile
               title="Imagem do prato"
               icon={UploadSimple}
               id="imagefile"
+              name="imageFile"
+              onChange={handleFileChange}
             />
+
             <div>
-              <Label htmlFor="nome">Nome do prato</Label>
+              <Label htmlFor="name">Nome do prato</Label>
               <Input
                 placeholder="Exemplo: Salada Caesar"
                 type="text"
-                id="nome"
+                id="name"
+                name="name"
+                onChange={handleInputChange}
               />
             </div>
             <div>
               <Label htmlFor="category">Categoria</Label>
               <CaretDown />
-              <select id="category">
+              <select
+                id="category"
+                name="category"
+                onChange={handleInputChange}
+              >
                 <option value="refeição">Refeição</option>
-                <option value="sobremesas">sobremesas</option>
+                <option value="sobremesas">Sobremesas</option>
+                <option value="bebidas">Bebidas</option>
               </select>
             </div>
           </div>
-          {/* linha com 2 elementos */}
           <div>
             <div>
               <Label>Ingredientes</Label>
               <div>
-                {ingredient.map((ingredient, index) => (
+                {dishData.ingredients.map((ingredient, index) => (
                   <TagIngredients key={index}>
                     {ingredient}
                     <X onClick={() => handleRemoveIngredient(index)} />
@@ -108,16 +196,24 @@ export function AddDish({ onOpenMenu }) {
                 </AddIngredients>
               </div>
             </div>
-
             <div>
-              <Label htmlFor="preco">Preço</Label>
-              <Input placeholder="R$ 19,99" type="number" id="preco" />
+              <Label htmlFor="price">Preço</Label>
+              <Input
+                placeholder="R$ 19,99"
+                type="number"
+                id="price"
+                name="price"
+                onChange={handleInputChange}
+              />
             </div>
           </div>
-          {/* 3a linha com a caixa de texto  */}
           <div>
-            <Label htmlFor="descreveprato">Descrição do prato</Label>
-            <DescrevePrato id="descreveprato" name="descricaoPrato" />
+            <Label htmlFor="description">Descrição do prato</Label>
+            <DescrevePrato
+              id="description"
+              name="description"
+              onChange={handleInputChange}
+            />
           </div>
           <Button title="criar prato" type="submit" />
         </Form>
