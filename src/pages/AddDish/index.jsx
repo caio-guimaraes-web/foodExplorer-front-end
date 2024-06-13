@@ -70,13 +70,56 @@ export function AddDish({ onOpenMenu }) {
     }))
   }
 
+  function handlePriceChange(event) {
+    const { value } = event.target
+    const formattedValue = value.replace(/[^0-9,]/g, "")
+    setDishData((prevState) => ({
+      ...prevState,
+      price: formattedValue,
+    }))
+  }
+
+  function validateForm() {
+    const { name, category, price, description, ingredients, imageFile } =
+      dishData
+    if (!name.trim()) {
+      alert("Por favor, insira o nome do prato.")
+      return false
+    }
+    if (!category.trim()) {
+      alert("Por favor, selecione a categoria do prato.")
+      return false
+    }
+    if (!price.trim()) {
+      alert("Por favor, insira o preço do prato.")
+      return false
+    }
+    if (!description.trim()) {
+      alert("Por favor, insira a descrição do prato.")
+      return false
+    }
+    if (ingredients.length === 0) {
+      alert("Por favor, adicione pelo menos um ingrediente.")
+      return false
+    }
+    if (!imageFile) {
+      alert("Por favor, selecione uma imagem do prato.")
+      return false
+    }
+    return true
+  }
+
   async function handleSubmit(event) {
     event.preventDefault()
+
+    if (!validateForm()) {
+      return
+    }
 
     const jsonData = JSON.stringify({
       name: dishData.name,
       category: dishData.category,
-      price: dishData.price,
+      price: dishData.price.replace(",", "."),
       description: dishData.description,
       ingredients: dishData.ingredients,
     })
@@ -116,9 +159,13 @@ export function AddDish({ onOpenMenu }) {
     formData.append("image", imageFile)
 
     try {
-      const response = await api.patch(`/dish/img/${dishId}`, formData)
+      const response = await api.patch(`/dish/img/${dishId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
 
-      if (!response.status === 200) {
+      if (response.status !== 200) {
         throw new Error("Erro ao enviar a imagem")
       }
     } catch (error) {
@@ -168,6 +215,7 @@ export function AddDish({ onOpenMenu }) {
                 name="category"
                 onChange={handleInputChange}
               >
+                <option value="">Selecione uma categoria</option>
                 <option value="refeição">Refeição</option>
                 <option value="sobremesas">Sobremesas</option>
                 <option value="bebidas">Bebidas</option>
@@ -197,13 +245,14 @@ export function AddDish({ onOpenMenu }) {
               </div>
             </div>
             <div>
-              <Label htmlFor="price">Preço</Label>
+              <Label htmlFor="price">Preço em R$</Label>
               <Input
-                placeholder="R$ 19,99"
-                type="number"
+                placeholder="19,99"
+                type="text"
                 id="price"
                 name="price"
-                onChange={handleInputChange}
+                value={dishData.price}
+                onChange={handlePriceChange}
               />
             </div>
           </div>
