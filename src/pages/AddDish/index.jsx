@@ -174,10 +174,13 @@ export function AddDish({ onOpenMenu }) {
   }
 
   function handleFileChange(event) {
-    setDishData({
-      ...dishData,
-      imageFile: event.target.files[0],
-    })
+    const file = event.target.files[0]
+    if (file) {
+      setDishData((prevState) => ({
+        ...prevState,
+        imageFile: file,
+      }))
+    }
   }
 
   return (
