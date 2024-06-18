@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import {
   Container,
   Section,
@@ -25,6 +26,7 @@ import { Footer } from "../../components/Footer"
 import { api } from "../../services/api" // Importando o componente API
 
 export function AddDish({ onOpenMenu }) {
+  const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
   const [newIngredient, setNewIngredient] = useState("")
   const [dishData, setDishData] = useState({
@@ -168,6 +170,10 @@ export function AddDish({ onOpenMenu }) {
       if (response.status !== 200) {
         throw new Error("Erro ao enviar a imagem")
       }
+      /* const result = await response.data
+      console.log("Imagem do Prato adicionado com sucesso!", result) */
+      alert("Prato adicionado com sucesso")
+      navigate(-1)
     } catch (error) {
       console.error("Erro ao enviar a imagem:", error)
     }
