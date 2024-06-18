@@ -6,6 +6,7 @@ import { AuthRoutes } from "./auth.routes"
 
 export function Routes() {
   const { user } = useAuth()
+  console.log("user dentro do index de rotas", user)
 
   return <BrowserRouter>{user ? <AppRoutes /> : <AuthRoutes />}</BrowserRouter>
 }
