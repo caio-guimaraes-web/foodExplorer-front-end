@@ -17,6 +17,8 @@ export const Container = styled.button`
   display: flex;
   gap: 0.667rem;
 
+  white-space: nowrap;
+
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
     padding: 0.75rem 2rem;
     border-radius: 0.313rem;
