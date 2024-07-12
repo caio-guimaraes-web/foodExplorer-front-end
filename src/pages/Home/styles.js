@@ -27,4 +27,9 @@ export const Section = styled.section`
       font-size: 2rem;
     }
   }
+
+  > div:nth-child(2) {
+    display: flex;
+    gap: 1rem;
+  }
 `

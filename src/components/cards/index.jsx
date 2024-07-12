@@ -1,38 +1,35 @@
 import { useState } from "react"
 import { Container } from "./styles"
-import { HeartStraight, PencilSimple } from "@phosphor-icons/react"
+import { HeartStraight } from "@phosphor-icons/react"
 
-import prato_teste from "../../assets/img_foods/prato_teste.png"
 import { Button } from "../Button"
 import { ButtonIconCard } from "../ButtonIconCard"
 
-export function Card() {
+export function Card({ image, title, description, price }) {
   const [count, setCount] = useState(0)
   const intervalNum = 1
 
   // decrement and increment method is just function
-  const decrement = () => setCount((prevCount) => prevCount - intervalNum)
+  const decrement = () =>
+    setCount((prevCount) => Math.max(prevCount - intervalNum, 0))
   const increment = () => setCount((prevCount) => prevCount + intervalNum)
 
   return (
     <Container>
       <ButtonIconCard icon={HeartStraight} />
       <div>
-        <img src={prato_teste} alt="" />
+        <img src={image} alt={title} />
       </div>
-      <p>Salada Ravanelo</p>
-      <p>
-        Rabanetes, folhas verdes e molho agridoce salpicados com gergelim. O pão
-        naan dá um toque especial.
-      </p>
-      <p>R$ 49,97</p>
+      <p>{title}</p>
+      <p>{description}</p>
+      <p>R$ {price}</p>
       <div>
         <div>
           <button onClick={decrement}>-</button>
           <p>{count}</p>
           <button onClick={increment}>+</button>
         </div>
-        <Button title="incluir" />
+        <Button title="Incluir" />
       </div>
     </Container>
   )
