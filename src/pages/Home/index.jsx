@@ -34,8 +34,9 @@ export function Home({ onOpenMenu }) {
 
       <Section>
         <h3>Refeições</h3>
-        <div>
-          {dishes.map((dish, index) => (
+        {dishes
+          .filter((dish) => dish.category === "Refeições")
+          .map((dish, index) => (
             <Card
               key={index}
               image={dish.image_url}
@@ -44,7 +45,36 @@ export function Home({ onOpenMenu }) {
               price={dish.price}
             />
           ))}
-        </div>
+      </Section>
+
+      <Section>
+        <h3>Sobremesas</h3>
+        {dishes
+          .filter((dish) => dish.category === "Sobremesas")
+          .map((dish, index) => (
+            <Card
+              key={index}
+              image={dish.image_url}
+              title={dish.name}
+              description={dish.description}
+              price={dish.price}
+            />
+          ))}
+      </Section>
+
+      <Section>
+        <h3>Bebidas</h3>
+        {dishes
+          .filter((dish) => dish.category === "Bebidas")
+          .map((dish, index) => (
+            <Card
+              key={index}
+              image={dish.image_url}
+              title={dish.name}
+              description={dish.description}
+              price={dish.price}
+            />
+          ))}
       </Section>
 
       <Footer />

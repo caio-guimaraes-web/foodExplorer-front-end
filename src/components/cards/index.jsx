@@ -4,6 +4,7 @@ import { HeartStraight } from "@phosphor-icons/react"
 
 import { Button } from "../Button"
 import { ButtonIconCard } from "../ButtonIconCard"
+import { getCardImageUrl } from "../../services/api"
 
 export function Card({ image, title, description, price }) {
   const [count, setCount] = useState(0)
@@ -14,11 +15,13 @@ export function Card({ image, title, description, price }) {
     setCount((prevCount) => Math.max(prevCount - intervalNum, 0))
   const increment = () => setCount((prevCount) => prevCount + intervalNum)
 
+  const imageUrl = `${getCardImageUrl()}${image}`
+
   return (
     <Container>
       <ButtonIconCard icon={HeartStraight} />
       <div>
-        <img src={image} alt={title} />
+        <img src={imageUrl} alt={title} />
       </div>
       <p>{title}</p>
       <p>{description}</p>
