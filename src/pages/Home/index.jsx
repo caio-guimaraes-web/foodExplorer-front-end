@@ -5,19 +5,27 @@ import { SideMenu } from "../../components/SideMenu"
 import { BannerPrimary } from "../../components/BannerPrimary"
 import { Card } from "../../components/cards"
 import { Footer } from "../../components/Footer"
-import { api } from "../../services/api" // Importando a API
+import { api } from "../../services/api"
+
+// Import Swiper styles
+import "swiper/css"
+import "swiper/css/navigation"
+import "swiper/css/pagination"
+
+// Import Swiper Element
+import { register } from "swiper/element/bundle"
+
+register()
 
 export function Home({ onOpenMenu }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [dishes, setDishes] = useState([])
 
   useEffect(() => {
-    // Função para buscar os dados da API
     const fetchDishes = async () => {
       try {
-        const response = await api.get("/dish/")
-        console.log("Dados recebidos:", response.data)
-        setDishes(response.data) // Assumindo que a resposta é um array de pratos
+        const response = await api.get("/dish")
+        setDishes(response.data)
       } catch (error) {
         console.error("Erro ao buscar os pratos:", error)
       }
@@ -34,47 +42,66 @@ export function Home({ onOpenMenu }) {
 
       <Section>
         <h3>Refeições</h3>
-        {dishes
-          .filter((dish) => dish.category === "Refeições")
-          .map((dish, index) => (
-            <Card
-              key={index}
-              image={dish.image_url}
-              title={dish.name}
-              description={dish.description}
-              price={dish.price}
-            />
-          ))}
+        <swiper-container space-between="20" slides-per-view="3" navigation>
+          {dishes
+            .filter((dish) => dish.category === "Refeições")
+            .map((dish, index) => (
+              <swiper-slide key={index}>
+                <Card
+                  image={dish.image_url}
+                  title={dish.name}
+                  description={dish.description}
+                  price={dish.price}
+                />
+              </swiper-slide>
+            ))}
+        </swiper-container>
       </Section>
 
       <Section>
         <h3>Sobremesas</h3>
-        {dishes
-          .filter((dish) => dish.category === "Sobremesas")
-          .map((dish, index) => (
-            <Card
-              key={index}
-              image={dish.image_url}
-              title={dish.name}
-              description={dish.description}
-              price={dish.price}
-            />
-          ))}
+        <swiper-container
+          space-between="20"
+          slides-per-view="3"
+          navigation
+          pagination-clickable="true"
+        >
+          {dishes
+            .filter((dish) => dish.category === "Sobremesas")
+            .map((dish, index) => (
+              <swiper-slide key={index}>
+                <Card
+                  image={dish.image_url}
+                  title={dish.name}
+                  description={dish.description}
+                  price={dish.price}
+                />
+              </swiper-slide>
+            ))}
+        </swiper-container>
       </Section>
 
       <Section>
         <h3>Bebidas</h3>
-        {dishes
-          .filter((dish) => dish.category === "Bebidas")
-          .map((dish, index) => (
-            <Card
-              key={index}
-              image={dish.image_url}
-              title={dish.name}
-              description={dish.description}
-              price={dish.price}
-            />
-          ))}
+        <swiper-container
+          space-between="20"
+          slides-per-view="3"
+          navigation
+          pagination-clickable="true"
+        >
+          {dishes
+            .filter((dish) => dish.category === "Bebidas")
+            .map((dish, index) => (
+              <swiper-slide key={index}>
+                <Card
+                  image={dish.image_url}
+                  title={dish.name}
+                  description={dish.description}
+                  price={dish.price}
+                />
+              </swiper-slide>
+            ))}
+        </swiper-container>
       </Section>
 
       <Footer />

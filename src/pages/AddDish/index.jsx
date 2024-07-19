@@ -225,9 +225,9 @@ export function AddDish({ onOpenMenu }) {
                 onChange={handleInputChange}
               >
                 <option value="">Selecione uma categoria</option>
-                <option value="refeição">Refeição</option>
-                <option value="sobremesas">Sobremesas</option>
-                <option value="bebidas">Bebidas</option>
+                <option value="Refeições">Refeições</option>
+                <option value="Sobremesas">Sobremesas</option>
+                <option value="Bebidas">Bebidas</option>
               </select>
             </div>
           </div>
