@@ -34,76 +34,48 @@ export function Home({ onOpenMenu }) {
     fetchDishes()
   }, [])
 
+  const renderSwiper = (category) => (
+    <swiper-container
+      navigation="true"
+      space-between="5"
+      breakpoints={`{
+        "425": { "slidesPerView": 2, "spaceBetween": 20 },
+        "768": { "slidesPerView": 2, "spaceBetween": 40 },
+        "1024": { "slidesPerView": 5, "spaceBetween": 50 }
+      }`}
+    >
+      {dishes
+        .filter((dish) => dish.category === category)
+        .map((dish) => (
+          <swiper-slide key={dish.id}>
+            <Card
+              title={dish.name}
+              description={dish.description}
+              price={dish.price}
+              image={dish.image_url}
+            />
+          </swiper-slide>
+        ))}
+    </swiper-container>
+  )
+
   return (
     <Container>
       <SideMenu menuOpen={menuOpen} onCloseMenu={() => setMenuOpen(false)} />
       <Header onOpenMenu={() => setMenuOpen(true)} />
       <BannerPrimary />
-
       <Section>
         <h3>Refeições</h3>
-        <swiper-container space-between="20" slides-per-view="3" navigation>
-          {dishes
-            .filter((dish) => dish.category === "Refeições")
-            .map((dish, index) => (
-              <swiper-slide key={index}>
-                <Card
-                  image={dish.image_url}
-                  title={dish.name}
-                  description={dish.description}
-                  price={dish.price}
-                />
-              </swiper-slide>
-            ))}
-        </swiper-container>
+        {renderSwiper("Refeições")}
       </Section>
-
       <Section>
         <h3>Sobremesas</h3>
-        <swiper-container
-          space-between="20"
-          slides-per-view="3"
-          navigation
-          pagination-clickable="true"
-        >
-          {dishes
-            .filter((dish) => dish.category === "Sobremesas")
-            .map((dish, index) => (
-              <swiper-slide key={index}>
-                <Card
-                  image={dish.image_url}
-                  title={dish.name}
-                  description={dish.description}
-                  price={dish.price}
-                />
-              </swiper-slide>
-            ))}
-        </swiper-container>
+        {renderSwiper("Sobremesas")}
       </Section>
-
       <Section>
         <h3>Bebidas</h3>
-        <swiper-container
-          space-between="20"
-          slides-per-view="3"
-          navigation
-          pagination-clickable="true"
-        >
-          {dishes
-            .filter((dish) => dish.category === "Bebidas")
-            .map((dish, index) => (
-              <swiper-slide key={index}>
-                <Card
-                  image={dish.image_url}
-                  title={dish.name}
-                  description={dish.description}
-                  price={dish.price}
-                />
-              </swiper-slide>
-            ))}
-        </swiper-container>
+        {renderSwiper("Bebidas")}
       </Section>
-
       <Footer />
     </Container>
   )
