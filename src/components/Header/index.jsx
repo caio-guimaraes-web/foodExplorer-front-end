@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Container } from "./styles"
 import { List, MagnifyingGlass, Receipt, SignOut } from "@phosphor-icons/react"
@@ -10,10 +11,17 @@ import { ButtonOut } from "../ButtonOut"
 import { ButtonMobileOrder } from "../ButttonMobileOrder"
 import { useAuth } from "../../hooks/auth"
 
-export function Header({ onOpenMenu }) {
+export function Header({ onOpenMenu, onSearch }) {
   const navigate = useNavigate()
   const { signOut, user } = useAuth()
   const isAdmin = user?.is_admin
+
+  const handleSearch = (searchTerm) => {
+    if (searchTerm.trim()) {
+      onSearch(searchTerm)
+    }
+  }
+
   return (
     <Container>
       <ButtonMobile icon={List} onClick={onOpenMenu} />
@@ -21,11 +29,13 @@ export function Header({ onOpenMenu }) {
         <img
           src={isAdmin ? logo_admin_desk : logoFoodExplorer}
           alt="ícone Food Explorer"
+          onClick={() => navigate("/")}
         />
       </div>
       <InputSearch
         icon={MagnifyingGlass}
         title="Busque por pratos ou Ingredientes"
+        onSearch={handleSearch}
       />
 
       {isAdmin ? (

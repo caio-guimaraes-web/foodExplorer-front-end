@@ -1,3 +1,4 @@
+// Home.jsx
 import { useState, useEffect } from "react"
 import { Container, Section } from "./styles"
 import { Header } from "../../components/Header"
@@ -20,6 +21,7 @@ register()
 export function Home({ onOpenMenu }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [dishes, setDishes] = useState([])
+  const [searchResults, setSearchResults] = useState([])
 
   useEffect(() => {
     const fetchDishes = async () => {
@@ -33,6 +35,15 @@ export function Home({ onOpenMenu }) {
 
     fetchDishes()
   }, [])
+
+  const handleSearch = async (term) => {
+    try {
+      const response = await api.get(`/dish?name=${term}`)
+      setSearchResults(response.data)
+    } catch (error) {
+      console.error("Erro ao buscar os pratos:", error)
+    }
+  }
 
   const renderSwiper = (category) => (
     <swiper-container
@@ -62,20 +73,39 @@ export function Home({ onOpenMenu }) {
   return (
     <Container>
       <SideMenu menuOpen={menuOpen} onCloseMenu={() => setMenuOpen(false)} />
-      <Header onOpenMenu={() => setMenuOpen(true)} />
+      <Header onOpenMenu={() => setMenuOpen(true)} onSearch={handleSearch} />
       <BannerPrimary />
-      <Section>
-        <h3>Refeições</h3>
-        {renderSwiper("Refeições")}
-      </Section>
-      <Section>
-        <h3>Sobremesas</h3>
-        {renderSwiper("Sobremesas")}
-      </Section>
-      <Section>
-        <h3>Bebidas</h3>
-        {renderSwiper("Bebidas")}
-      </Section>
+      {searchResults.length > 0 ? (
+        <Section>
+          <h3>Resultados da Busca</h3>
+          <div className="search-results">
+            {searchResults.map((dish) => (
+              <Card
+                key={dish.id}
+                title={dish.name}
+                description={dish.description}
+                price={dish.price}
+                image={dish.image_url}
+              />
+            ))}
+          </div>
+        </Section>
+      ) : (
+        <>
+          <Section>
+            <h3>Refeições</h3>
+            {renderSwiper("Refeições")}
+          </Section>
+          <Section>
+            <h3>Sobremesas</h3>
+            {renderSwiper("Sobremesas")}
+          </Section>
+          <Section>
+            <h3>Bebidas</h3>
+            {renderSwiper("Bebidas")}
+          </Section>
+        </>
+      )}
       <Footer />
     </Container>
   )
