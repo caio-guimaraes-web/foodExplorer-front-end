@@ -9,10 +9,16 @@ export const Section = styled.section`
   padding: 0 0 2rem 2.333rem;
 
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
-    padding: 0 7.688rem 3rem;
+    padding: 0 3rem 3rem;
     > h3 {
       font-size: 2rem;
     }
+  }
+  @media (min-width: ${DEVICE_BREAKPOINTS.LG}) {
+    padding: 0 3rem 3rem;
+  }
+  @media (min-width: ${DEVICE_BREAKPOINTS.XL}) {
+    padding: 0 7.688rem 3rem;
   }
 
   > h3 {
@@ -32,4 +38,9 @@ export const Section = styled.section`
     display: flex;
     gap: 1rem;
   }
+
+  /* .custom-swiper swiper-slide div {
+    min-width: 300px;
+    width: 100% !important;
+  } */
 `

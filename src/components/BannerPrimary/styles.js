@@ -20,12 +20,15 @@ export const Container = styled.div`
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
     height: 406px;
     max-height: 406px;
-    padding: 0 7.688rem;
+    padding: 0 3rem;
     margin-top: 125px;
     margin-bottom: 3.875rem;
     align-content: unset;
     flex-wrap: unset;
     justify-content: unset;
+  }
+  @media (min-width: ${DEVICE_BREAKPOINTS.LG}) {
+    padding: 0 7.688rem;
   }
 
   div:nth-child(1) {

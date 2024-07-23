@@ -11,16 +11,20 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
 
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.COLORS.DARK_300};
   background: ${({ theme }) => theme.COLORS.DARK_200};
+  margin-left: calc(50vw - 135px);
 
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
+    /* min-width: 300px; */
     max-width: 304px;
-    min-height: 462px;
+    min-height: 500px;
     gap: 15px;
+    margin-left: unset;
   }
 
   /* ButtonIconCard */
@@ -60,6 +64,7 @@ export const Container = styled.div`
       font-weight: 500;
       font-size: 1.5rem;
       line-height: 140%;
+      text-align: center;
     }
   }
 
