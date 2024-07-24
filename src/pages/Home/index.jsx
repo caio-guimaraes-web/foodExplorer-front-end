@@ -76,7 +76,11 @@ export function Home({ onOpenMenu }) {
 
   return (
     <Container>
-      <SideMenu menuOpen={menuOpen} onCloseMenu={() => setMenuOpen(false)} />
+      <SideMenu
+        menuOpen={menuOpen}
+        onCloseMenu={() => setMenuOpen(false)}
+        onSearch={handleSearch}
+      />
       <Header onOpenMenu={() => setMenuOpen(true)} onSearch={handleSearch} />
       <BannerPrimary />
       {searchResults.length > 0 ? (

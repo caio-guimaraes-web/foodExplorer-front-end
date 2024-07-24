@@ -28,7 +28,7 @@ export const Container = styled.aside`
   > div {
     padding: 0 2.333rem;
 
-    > a {
+    > p {
       font-family: "Poppins", sans-serif;
       color: ${({ theme }) => theme.COLORS.LIGHT_300};
       font-size: 2rem;
@@ -40,6 +40,11 @@ export const Container = styled.aside`
       margin-top: 36px;
       margin-left: 10px;
       margin-bottom: 10px;
+      cursor: pointer;
+      &:hover,
+      &:active {
+        color: ${({ theme }) => theme.COLORS.CAKE_200};
+      }
     }
 
     > div > input {
