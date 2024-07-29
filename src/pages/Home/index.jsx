@@ -38,7 +38,10 @@ export function Home({ onOpenMenu }) {
 
   const handleSearch = async (term) => {
     try {
-      const response = await api.get(`/dish?name=${term}`)
+      // Cria uma URL de busca que considera tanto o nome quanto os ingredientes
+      const url = `/dish?name=${term}&ingredients=${term}`
+
+      const response = await api.get(url)
       setSearchResults(response.data)
     } catch (error) {
       console.error("Erro ao buscar os pratos:", error)

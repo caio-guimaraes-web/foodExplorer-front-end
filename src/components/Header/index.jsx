@@ -1,4 +1,4 @@
-import { useState } from "react"
+// Header.jsx
 import { useNavigate } from "react-router-dom"
 import { Container } from "./styles"
 import { List, MagnifyingGlass, Receipt, SignOut } from "@phosphor-icons/react"
@@ -40,7 +40,7 @@ export function Header({ onOpenMenu, onSearch }) {
 
       {isAdmin ? (
         <>
-          <Button title="Novo Prato" onClick={(e) => navigate("/adddish")} />
+          <Button title="Novo Prato" onClick={() => navigate("/adddish")} />
         </>
       ) : (
         <>
