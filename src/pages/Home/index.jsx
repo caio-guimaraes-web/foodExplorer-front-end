@@ -1,4 +1,3 @@
-// Home.jsx
 import { useState, useEffect } from "react"
 import { Container, Section } from "./styles"
 import { Header } from "../../components/Header"
@@ -7,6 +6,9 @@ import { BannerPrimary } from "../../components/BannerPrimary"
 import { Card } from "../../components/cards"
 import { Footer } from "../../components/Footer"
 import { api } from "../../services/api"
+import { Button } from "../../components/Button" // Adicionando o componente Button
+import { CaretLeft } from "@phosphor-icons/react"
+import { ButtonBack } from "../../components/ButtonBack"
 
 // Import Swiper styles
 import "swiper/css"
@@ -40,12 +42,15 @@ export function Home({ onOpenMenu }) {
     try {
       // Cria uma URL de busca que considera tanto o nome quanto os ingredientes
       const url = `/dish?name=${term}&ingredients=${term}`
-
       const response = await api.get(url)
       setSearchResults(response.data)
     } catch (error) {
       console.error("Erro ao buscar os pratos:", error)
     }
+  }
+
+  const handleResetSearch = () => {
+    setSearchResults([]) // Reseta os resultados da busca para um array vazio
   }
 
   const renderSwiper = (category) => (
@@ -100,6 +105,11 @@ export function Home({ onOpenMenu }) {
               />
             ))}
           </div>
+          <ButtonBack
+            title="voltar"
+            icon={CaretLeft}
+            onClick={handleResetSearch}
+          />
         </Section>
       ) : (
         <>

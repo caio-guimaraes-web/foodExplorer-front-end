@@ -39,6 +39,10 @@ export const Section = styled.section`
     gap: 1rem;
   }
 
+  .search-results {
+    flex-wrap: wrap;
+  }
+
   /* .custom-swiper swiper-slide div {
     min-width: 300px;
     width: 100% !important;
