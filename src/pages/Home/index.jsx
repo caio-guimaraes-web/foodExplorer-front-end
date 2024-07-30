@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { Container, Section } from "./styles"
 import { Header } from "../../components/Header"
 import { SideMenu } from "../../components/SideMenu"
 import { BannerPrimary } from "../../components/BannerPrimary"
 import { Card } from "../../components/cards"
 import { Footer } from "../../components/Footer"
-import { api } from "../../services/api"
-import { Button } from "../../components/Button" // Adicionando o componente Button
 import { CaretLeft } from "@phosphor-icons/react"
 import { ButtonBack } from "../../components/ButtonBack"
+import { api } from "../../services/api"
 
 // Import Swiper styles
 import "swiper/css"
@@ -24,6 +24,7 @@ export function Home({ onOpenMenu }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [dishes, setDishes] = useState([])
   const [searchResults, setSearchResults] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchDishes = async () => {
@@ -53,6 +54,10 @@ export function Home({ onOpenMenu }) {
     setSearchResults([]) // Reseta os resultados da busca para um array vazio
   }
 
+  const handleCardClick = (id) => {
+    navigate(`/dish/${id}`)
+  }
+
   const renderSwiper = (category) => (
     <swiper-container
       class="custom-swiper"
@@ -76,6 +81,7 @@ export function Home({ onOpenMenu }) {
               description={dish.description}
               price={dish.price}
               image={dish.image_url}
+              onClick={() => handleCardClick(dish.id)}
             />
           </swiper-slide>
         ))}
@@ -102,6 +108,7 @@ export function Home({ onOpenMenu }) {
                 description={dish.description}
                 price={dish.price}
                 image={dish.image_url}
+                onClick={() => handleCardClick(dish.id)}
               />
             ))}
           </div>

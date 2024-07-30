@@ -6,7 +6,7 @@ import { Button } from "../Button"
 import { ButtonIconCard } from "../ButtonIconCard"
 import { getCardImageUrl } from "../../services/api"
 
-export function Card({ image, title, description, price }) {
+export function Card({ image, title, description, price, onClick }) {
   const [count, setCount] = useState(0)
   const intervalNum = 1
 
@@ -18,7 +18,7 @@ export function Card({ image, title, description, price }) {
   const imageUrl = `${getCardImageUrl()}${image}`
 
   return (
-    <Container>
+    <Container onClick={onClick}>
       <ButtonIconCard icon={HeartStraight} />
       <div>
         <img src={imageUrl} alt={title} />
