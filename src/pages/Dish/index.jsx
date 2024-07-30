@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Navigate, useNavigate } from "react-router-dom"
 import { Container, Section } from "./styles"
 import { Header } from "../../components/Header"
 import { SideMenu } from "../../components/SideMenu"
@@ -21,12 +22,15 @@ export function Dish({ onOpenMenu }) {
   const decrement = () => setCount((prevCount) => prevCount - intervalNum)
   const increment = () => setCount((prevCount) => prevCount + intervalNum)
 
+  const navigate = useNavigate()
+  const handleBack = () => navigate(`/`)
+
   return (
     <Container>
       <SideMenu menuOpen={menuOpen} onCloseMenu={() => setMenuOpen(false)} />
       <Header onOpenMenu={() => setMenuOpen(true)} />
       <Section>
-        <ButtonBack title="voltar" icon={CaretLeft} />
+        <ButtonBack title="voltar" icon={CaretLeft} onClick={handleBack} />
         <div>
           <img src={prato_teste} alt="" />
         </div>

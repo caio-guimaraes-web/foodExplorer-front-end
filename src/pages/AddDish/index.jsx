@@ -27,6 +27,7 @@ import { api } from "../../services/api" // Importando o componente API
 
 export function AddDish({ onOpenMenu }) {
   const navigate = useNavigate()
+  const handleBack = () => navigate(`/`)
   const [menuOpen, setMenuOpen] = useState(false)
   const [newIngredient, setNewIngredient] = useState("")
   const [dishData, setDishData] = useState({
@@ -194,7 +195,7 @@ export function AddDish({ onOpenMenu }) {
       <SideMenu menuOpen={menuOpen} onCloseMenu={() => setMenuOpen(false)} />
       <Header onOpenMenu={() => setMenuOpen(true)} />
       <Section>
-        <ButtonBack title="voltar" icon={CaretLeft} />
+        <ButtonBack title="voltar" icon={CaretLeft} onClick={handleBack} />
         <Form onSubmit={handleSubmit}>
           <h2>Adicionar prato</h2>
           <div>

@@ -18,6 +18,10 @@ export const Container = styled.div`
   border: 1px solid ${({ theme }) => theme.COLORS.DARK_300};
   background: ${({ theme }) => theme.COLORS.DARK_200};
   margin-left: calc(50vw - 135px);
+  cursor: pointer;
+  &:hover {
+    border-color: ${({ theme }) => theme.COLORS.TOMATO_300};
+  }
 
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
     /* min-width: 300px; */

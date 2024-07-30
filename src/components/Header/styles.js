@@ -20,6 +20,7 @@ export const Container = styled.header`
 
   > div > img {
     max-width: 150px;
+    cursor: pointer;
 
     @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
       max-width: 11.5rem;
