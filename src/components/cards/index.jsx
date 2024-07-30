@@ -18,10 +18,10 @@ export function Card({ image, title, description, price, onClick }) {
   const imageUrl = `${getCardImageUrl()}${image}`
 
   return (
-    <Container onClick={onClick}>
+    <Container>
       <ButtonIconCard icon={HeartStraight} />
       <div>
-        <img src={imageUrl} alt={title} />
+        <img src={imageUrl} alt={title} onClick={onClick} />
       </div>
       <p>{title}</p>
       <p>{description}</p>

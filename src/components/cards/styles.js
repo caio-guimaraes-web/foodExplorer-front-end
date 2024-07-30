@@ -18,9 +18,9 @@ export const Container = styled.div`
   border: 1px solid ${({ theme }) => theme.COLORS.DARK_300};
   background: ${({ theme }) => theme.COLORS.DARK_200};
   margin-left: calc(50vw - 135px);
-  cursor: pointer;
+
   &:hover {
-    border-color: ${({ theme }) => theme.COLORS.TOMATO_300};
+    border: 1px solid ${({ theme }) => theme.COLORS.DARK_1000};
   }
 
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
@@ -54,6 +54,10 @@ export const Container = styled.div`
     > img {
       width: 100%;
       height: auto;
+      cursor: pointer;
+      /* &:hover {
+        border: 1px solid ${({ theme }) => theme.COLORS.TOMATO_300};
+      } */
     }
   }
 
