@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useParams, useNavigate } from "react-router-dom"
 import {
   Container,
   Section,
@@ -21,12 +22,97 @@ import { Label } from "../../components/Label/styles"
 import { Input } from "../../components/Input"
 import { InputFile } from "../../components/InputFile"
 import { Button } from "../../components/Button"
-
 import { Footer } from "../../components/Footer"
+import { api } from "../../services/api"
 
 export function EditDish({ onOpenMenu }) {
-  /* open side menu mobile */
   const [menuOpen, setMenuOpen] = useState(false)
+  const [dish, setDish] = useState(null)
+  const [ingredients, setIngredients] = useState([])
+  const [newIngredient, setNewIngredient] = useState("")
+  const [imageFile, setImageFile] = useState(null)
+  const { id } = useParams()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const fetchDishAndIngredients = async () => {
+      try {
+        // Buscar dados do prato
+        const dishResponse = await api.get(`/dish/${id}`)
+        const dishData = dishResponse.data
+
+        // Buscar ingredientes do prato
+        const ingredientsResponse = await api.get(`/ingredients/${id}`)
+        const ingredientsData = ingredientsResponse.data
+
+        setDish(dishData)
+        setIngredients(ingredientsData)
+      } catch (error) {
+        console.error("Erro ao buscar os dados do prato e ingredientes:", error)
+      }
+    }
+
+    fetchDishAndIngredients()
+  }, [id])
+
+  const handleAddIngredient = () => {
+    if (newIngredient.trim() !== "") {
+      setIngredients([...ingredients, { name: newIngredient }])
+      setNewIngredient("")
+    }
+  }
+
+  const handleRemoveIngredient = (ingredient) => {
+    setIngredients(ingredients.filter((item) => item.name !== ingredient.name))
+  }
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0]
+    if (file) {
+      setImageFile(file)
+    }
+  }
+
+  const uploadImage = async (dishId, imageFile) => {
+    const formData = new FormData()
+    formData.append("image", imageFile)
+
+    try {
+      const response = await api.patch(`/dish/img/${dishId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+
+      if (response.status !== 200) {
+        throw new Error("Erro ao enviar a imagem")
+      }
+    } catch (error) {
+      console.error("Erro ao enviar a imagem:", error)
+    }
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    try {
+      const updatedDish = {
+        ...dish,
+        ingredients: ingredients.map((ingredient) => ingredient.name),
+      }
+      await api.put(`/dish/${id}`, updatedDish)
+
+      if (imageFile) {
+        await uploadImage(id, imageFile)
+      }
+
+      alert("Prato atualizado com sucesso!")
+      navigate("/")
+    } catch (error) {
+      console.error("Erro ao atualizar o prato:", error)
+    }
+  }
+
+  if (!dish) return <p>Carregando...</p>
 
   return (
     <Container>
@@ -34,14 +120,15 @@ export function EditDish({ onOpenMenu }) {
       <Header onOpenMenu={() => setMenuOpen(true)} />
       <Section>
         <ButtonBack title="voltar" icon={CaretLeft} />
-        <Form>
-          <h2>Adicionar prato</h2>
+        <Form onSubmit={handleSubmit}>
+          <h2>Editar prato</h2>
           {/* linha com 3 inputs */}
           <div>
             <InputFile
               title="Imagem do prato"
               icon={UploadSimple}
               id="imagefile"
+              onChange={handleFileChange}
             />
             <div>
               <Label htmlFor="nome">Nome do prato</Label>
@@ -49,14 +136,22 @@ export function EditDish({ onOpenMenu }) {
                 placeholder="Exemplo: Salada Caesar"
                 type="text"
                 id="nome"
+                value={dish.name}
+                onChange={(e) => setDish({ ...dish, name: e.target.value })}
               />
             </div>
             <div>
               <Label htmlFor="category">Categoria</Label>
               <CaretDown />
-              <select id="category">
-                <option value="refeição">Refeição</option>
-                <option value="sobremesas">sobremesas</option>
+              <select
+                id="category"
+                value={dish.category}
+                onChange={(e) => setDish({ ...dish, category: e.target.value })}
+              >
+                <option value="">Selecione uma categoria</option>
+                <option value="Refeições">Refeições</option>
+                <option value="Sobremesas">Sobremesas</option>
+                <option value="Bebidas">Bebidas</option>
               </select>
             </div>
           </div>
@@ -65,29 +160,46 @@ export function EditDish({ onOpenMenu }) {
             <div>
               <Label>Ingredientes</Label>
               <div>
-                <TagIngredients>
-                  Cebola <X />
-                </TagIngredients>
-                <TagIngredients>
-                  Alho <X />
-                </TagIngredients>
-
+                {ingredients.map((ingredient, index) => (
+                  <TagIngredients key={index}>
+                    {ingredient.name}{" "}
+                    <X onClick={() => handleRemoveIngredient(ingredient)} />
+                  </TagIngredients>
+                ))}
                 <AddIngredients>
-                  <input type="text" placeholder="adicionar" />
-                  <Plus />
+                  <input
+                    type="text"
+                    placeholder="adicionar"
+                    value={newIngredient}
+                    onChange={(e) => setNewIngredient(e.target.value)}
+                  />
+                  <Plus onClick={handleAddIngredient} />
                 </AddIngredients>
               </div>
             </div>
 
             <div>
               <Label htmlFor="preco">Preço</Label>
-              <Input placeholder="R$ 19,99" type="number" id="preco" />
+              <Input
+                placeholder="R$ 19,99"
+                type="number"
+                id="preco"
+                value={dish.price}
+                onChange={(e) => setDish({ ...dish, price: e.target.value })}
+              />
             </div>
           </div>
-          {/* 3a linha com a caixa de texto  */}
+          {/* 3a linha com a caixa de texto */}
           <div>
-            <Label htmlFor="descreveprato">Preço</Label>
-            <DescrevePrato id="descreveprato" name="descricaoPrato" />
+            <Label htmlFor="descreveprato">Descrição</Label>
+            <DescrevePrato
+              id="descreveprato"
+              name="descricaoPrato"
+              value={dish.description}
+              onChange={(e) =>
+                setDish({ ...dish, description: e.target.value })
+              }
+            />
           </div>
           <Button title="salvar alterações" type="submit" />
         </Form>
