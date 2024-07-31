@@ -29,7 +29,8 @@ export function Dish({ onOpenMenu }) {
         const dishResponse = await api.get(`/dish/${id}`)
         setDish(dishResponse.data)
 
-        const ingredientsResponse = await api.get(`/ingredients?dish_id=${id}`)
+        /* const ingredientsResponse = await api.get(`/ingredients?dish_id=${id}`) */
+        const ingredientsResponse = await api.get(`/ingredients/${id}`)
         setIngredients(ingredientsResponse.data)
       } catch (error) {
         console.error("Erro ao buscar os dados do prato e ingredientes:", error)
