@@ -1,5 +1,9 @@
 import { Container } from "./styles"
 
-export function ButtonIconCard({ icon: Icon, ...rest }) {
-  return <Container {...rest}>{Icon && <Icon />}</Container>
+export function ButtonIconCard({ icon: Icon, onClick, ...rest }) {
+  return (
+    <Container onClick={onClick} {...rest}>
+      {Icon && <Icon />}
+    </Container>
+  )
 }

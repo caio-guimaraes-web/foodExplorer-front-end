@@ -81,6 +81,7 @@ export function Home({ onOpenMenu }) {
         .map((dish) => (
           <swiper-slide key={dish.id}>
             <Card
+              id={dish.id}
               title={dish.name}
               description={dish.description}
               price={dish.price}
@@ -109,6 +110,7 @@ export function Home({ onOpenMenu }) {
             {searchResults.map((dish) => (
               <Card
                 key={dish.id}
+                id={dish.id}
                 title={dish.name}
                 description={dish.description}
                 price={dish.price}
