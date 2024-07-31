@@ -9,6 +9,7 @@ import { Footer } from "../../components/Footer"
 import { CaretLeft } from "@phosphor-icons/react"
 import { ButtonBack } from "../../components/ButtonBack"
 import { api } from "../../services/api"
+import { useAuth } from "../../hooks/auth"
 
 // Import Swiper styles
 import "swiper/css"
@@ -25,6 +26,9 @@ export function Home({ onOpenMenu }) {
   const [dishes, setDishes] = useState([])
   const [searchResults, setSearchResults] = useState([])
   const navigate = useNavigate()
+
+  const { user } = useAuth()
+  const isAdmin = user?.is_admin
 
   useEffect(() => {
     const fetchDishes = async () => {
@@ -82,6 +86,7 @@ export function Home({ onOpenMenu }) {
               price={dish.price}
               image={dish.image_url}
               onClick={() => handleCardClick(dish.id)}
+              isAdmin={isAdmin}
             />
           </swiper-slide>
         ))}
@@ -109,6 +114,7 @@ export function Home({ onOpenMenu }) {
                 price={dish.price}
                 image={dish.image_url}
                 onClick={() => handleCardClick(dish.id)}
+                isAdmin={isAdmin}
               />
             ))}
           </div>

@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { Container } from "./styles"
-import { HeartStraight } from "@phosphor-icons/react"
+import { HeartStraight, Pencil } from "@phosphor-icons/react"
 
 import { Button } from "../Button"
 import { ButtonIconCard } from "../ButtonIconCard"
 import { getCardImageUrl } from "../../services/api"
 
-export function Card({ image, title, description, price, onClick }) {
+export function Card({ image, title, description, price, onClick, isAdmin }) {
   const [count, setCount] = useState(0)
   const intervalNum = 1
 
@@ -19,21 +19,23 @@ export function Card({ image, title, description, price, onClick }) {
 
   return (
     <Container>
-      <ButtonIconCard icon={HeartStraight} />
+      <ButtonIconCard icon={isAdmin ? Pencil : HeartStraight} />
       <div>
         <img src={imageUrl} alt={title} onClick={onClick} />
       </div>
       <p>{title}</p>
       <p>{description}</p>
       <p>R$ {price}</p>
-      <div>
+      {!isAdmin && (
         <div>
-          <button onClick={decrement}>-</button>
-          <p>{count}</p>
-          <button onClick={increment}>+</button>
+          <div>
+            <button onClick={decrement}>-</button>
+            <p>{count}</p>
+            <button onClick={increment}>+</button>
+          </div>
+          <Button title="Incluir" />
         </div>
-        <Button title="Incluir" />
-      </div>
+      )}
     </Container>
   )
 }
