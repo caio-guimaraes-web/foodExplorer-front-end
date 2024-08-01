@@ -148,9 +148,16 @@ export const Form = styled.form`
     gap: 0;
   }
 
-  > button:nth-child(5) {
+  > div:nth-child(5) {
     margin-left: auto;
+
+    .btn-exclude-dish {
+      background: ${({ theme }) => theme.COLORS.CAKE_100};
+    }
   }
+  /* > button:nth-child(5) {
+    margin-left: auto;
+  } */
 `
 
 export const TagIngredients = styled.h6`

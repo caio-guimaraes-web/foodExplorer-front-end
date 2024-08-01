@@ -34,6 +34,8 @@ export function EditDish({ onOpenMenu }) {
   const { id } = useParams()
   const navigate = useNavigate()
 
+  const handleBack = () => navigate(`/`)
+
   useEffect(() => {
     const fetchDishAndIngredients = async () => {
       try {
@@ -112,6 +114,23 @@ export function EditDish({ onOpenMenu }) {
     }
   }
 
+  const handleDelete = async () => {
+    event.preventDefault() // Evitar o comportamento padrão do formulário
+    const confirmed = window.confirm(
+      "Tem certeza de que deseja deletar este prato? Esta ação não pode ser desfeita."
+    )
+    if (confirmed) {
+      try {
+        await api.delete(`/dish/${id}`)
+        alert("Prato deletado com sucesso!")
+        navigate("/")
+      } catch (error) {
+        console.error("Erro ao deletar o prato:", error)
+        alert("Erro ao deletar o prato. Por favor, tente novamente.")
+      }
+    }
+  }
+
   if (!dish) return <p>Carregando...</p>
 
   return (
@@ -119,7 +138,7 @@ export function EditDish({ onOpenMenu }) {
       <SideMenu menuOpen={menuOpen} onCloseMenu={() => setMenuOpen(false)} />
       <Header onOpenMenu={() => setMenuOpen(true)} />
       <Section>
-        <ButtonBack title="voltar" icon={CaretLeft} />
+        <ButtonBack title="voltar" icon={CaretLeft} onClick={handleBack} />
         <Form onSubmit={handleSubmit}>
           <h2>Editar prato</h2>
           {/* linha com 3 inputs */}
@@ -201,7 +220,14 @@ export function EditDish({ onOpenMenu }) {
               }
             />
           </div>
-          <Button title="salvar alterações" type="submit" />
+          <div>
+            <Button
+              className="btn-exclude-dish"
+              title="excluir prato"
+              onClick={handleDelete}
+            />
+            <Button title="salvar alterações" type="submit" />
+          </div>
         </Form>
       </Section>
       <Footer />
