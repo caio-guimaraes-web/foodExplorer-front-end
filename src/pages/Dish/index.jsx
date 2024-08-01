@@ -76,7 +76,11 @@ export function Dish({ onOpenMenu }) {
               <p>{count}</p>
               <button onClick={increment}>+</button>
             </div>
-            <Button title={`pedir ∙ R$ ${totalPrice}`} icon={Receipt} />
+            <Button
+              title={`pedir ∙ R$ ${totalPrice}`}
+              icon={Receipt}
+              onClick={() => alert("O mecanismo de pedido ficou para a V2. :D")}
+            />
           </div>
         ) : (
           <div>
