@@ -8,20 +8,25 @@ import { ButtonBack } from "../../components/ButtonBack"
 import { Tag } from "../../components/Tag"
 import { Button } from "../../components/Button"
 import { Footer } from "../../components/Footer"
-import { api, getCardImageUrl } from "../../services/api" // Importe o serviço de API e a função
+import { api, getCardImageUrl } from "../../services/api"
+import { useAuth } from "../../hooks/auth"
 
 export function Dish({ onOpenMenu }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [dish, setDish] = useState(null)
   const [ingredients, setIngredients] = useState([])
-  const [count, setCount] = useState(0)
-  const intervalNum = 1
+  const [count, setCount] = useState(1) // Inicializar com 1
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const decrement = () =>
-    setCount((prevCount) => Math.max(prevCount - intervalNum, 0))
-  const increment = () => setCount((prevCount) => prevCount + intervalNum)
+  const { user } = useAuth()
+  const isAdmin = user?.is_admin
+  console.log("é admin?", isAdmin)
+
+  const handleEditDish = () => navigate(`/editdish/${id}`)
+
+  const decrement = () => setCount((prevCount) => Math.max(prevCount - 1, 1)) // Não permitir quantidade menor que 1
+  const increment = () => setCount((prevCount) => prevCount + 1)
 
   useEffect(() => {
     const fetchDishData = async () => {
@@ -29,7 +34,6 @@ export function Dish({ onOpenMenu }) {
         const dishResponse = await api.get(`/dish/${id}`)
         setDish(dishResponse.data)
 
-        /* const ingredientsResponse = await api.get(`/ingredients?dish_id=${id}`) */
         const ingredientsResponse = await api.get(`/ingredients/${id}`)
         setIngredients(ingredientsResponse.data)
       } catch (error) {
@@ -47,6 +51,7 @@ export function Dish({ onOpenMenu }) {
   }
 
   const imageUrl = `${getCardImageUrl()}${dish.image_url}`
+  const totalPrice = (dish.price * count).toFixed(2) // Calcular o preço total
 
   return (
     <Container>
@@ -64,14 +69,20 @@ export function Dish({ onOpenMenu }) {
             <Tag key={ingredient.id} title={ingredient.name} />
           ))}
         </section>
-        <div>
+        {!isAdmin ? (
           <div>
-            <button onClick={decrement}>-</button>
-            <p>{count}</p>
-            <button onClick={increment}>+</button>
+            <div>
+              <button onClick={decrement}>-</button>
+              <p>{count}</p>
+              <button onClick={increment}>+</button>
+            </div>
+            <Button title={`pedir ∙ R$ ${totalPrice}`} icon={Receipt} />
           </div>
-          <Button title={`pedir ∙ R$ ${dish.price}`} icon={Receipt} />
-        </div>
+        ) : (
+          <div>
+            <Button title="editar prato" onClick={handleEditDish} />
+          </div>
+        )}
       </Section>
       <Footer />
     </Container>
