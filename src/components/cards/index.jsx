@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Container } from "./styles"
 import { HeartStraight, Pencil } from "@phosphor-icons/react"
 import { useNavigate } from "react-router-dom"
@@ -16,11 +16,15 @@ export function Card({
   isAdmin,
   id,
 }) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(1)
+  const [totalPrice, setTotalPrice] = useState(price)
   const intervalNum = 1
   const navigate = useNavigate()
 
-  // decrement and increment method is just function
+  useEffect(() => {
+    setTotalPrice(price * count)
+  }, [count, price])
+
   const decrement = () =>
     setCount((prevCount) => Math.max(prevCount - intervalNum, 0))
   const increment = () => setCount((prevCount) => prevCount + intervalNum)
@@ -43,7 +47,7 @@ export function Card({
       </div>
       <p>{title}</p>
       <p>{description}</p>
-      <p>R$ {price}</p>
+      <p>R$ {totalPrice.toFixed(2)}</p>
       {!isAdmin && (
         <div>
           <div>
