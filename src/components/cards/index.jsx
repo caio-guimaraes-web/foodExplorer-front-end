@@ -29,10 +29,14 @@ export function Card({
     setCount((prevCount) => Math.max(prevCount - intervalNum, 0))
   const increment = () => setCount((prevCount) => prevCount + intervalNum)
 
-  const handleAdminClick = () => navigate(`/editdish/${id}`)
-  const handleUserClick = () => {
-    console.log("Item favoritado, em breve a funcionalidade estará disponível.")
+  const handleAdminEditClick = () => navigate(`/editdish/${id}`)
+  const handleUserFavoriteClick = () => {
+    alert("Item favoritado, em breve a funcionalidade estará disponível.")
   }
+  const handleIncludeDishClick = () =>
+    alert(
+      "Prato(s) incluído(s) no pedido! Em breve a funcionalidade estará disponível."
+    )
 
   const imageUrl = `${getCardImageUrl()}${image}`
 
@@ -40,7 +44,7 @@ export function Card({
     <Container>
       <ButtonIconCard
         icon={isAdmin ? Pencil : HeartStraight}
-        onClick={isAdmin ? handleAdminClick : handleUserClick}
+        onClick={isAdmin ? handleAdminEditClick : handleUserFavoriteClick}
       />
       <div>
         <img src={imageUrl} alt={title} onClick={onClick} />
@@ -55,7 +59,7 @@ export function Card({
             <p>{count}</p>
             <button onClick={increment}>+</button>
           </div>
-          <Button title="Incluir" />
+          <Button title="Incluir" onClick={handleIncludeDishClick} />
         </div>
       )}
     </Container>
