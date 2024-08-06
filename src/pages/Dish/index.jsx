@@ -23,7 +23,7 @@ export function Dish({ onOpenMenu }) {
 
   const { user } = useAuth()
   const isAdmin = user?.is_admin
-  console.log("é admin?", isAdmin)
+  /* console.log("é admin?", isAdmin) */
 
   const handleEditDish = () => navigate(`/editdish/${id}`)
 

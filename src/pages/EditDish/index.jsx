@@ -1,3 +1,4 @@
+import { useLoading } from "../../context/LoadingContext"
 import { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import {
@@ -26,11 +27,13 @@ import { Footer } from "../../components/Footer"
 import { api } from "../../services/api"
 
 export function EditDish({ onOpenMenu }) {
+  const { setLoading } = useLoading()
   const [menuOpen, setMenuOpen] = useState(false)
   const [dish, setDish] = useState(null)
   const [ingredients, setIngredients] = useState([])
   const [newIngredient, setNewIngredient] = useState("")
   const [imageFile, setImageFile] = useState(null)
+  const [buttonText, setButtonText] = useState("salvar alterações") // Estado para gerenciar o texto do botão
   const { id } = useParams()
   const navigate = useNavigate()
 
@@ -39,6 +42,7 @@ export function EditDish({ onOpenMenu }) {
   useEffect(() => {
     const fetchDishAndIngredients = async () => {
       try {
+        setLoading(true)
         // Buscar dados do prato
         const dishResponse = await api.get(`/dish/${id}`)
         const dishData = dishResponse.data
@@ -50,7 +54,11 @@ export function EditDish({ onOpenMenu }) {
         setDish(dishData)
         setIngredients(ingredientsData)
       } catch (error) {
+        setLoading(false)
         console.error("Erro ao buscar os dados do prato e ingredientes:", error)
+        alert("OOps! ")
+      } finally {
+        setLoading(false)
       }
     }
 
@@ -85,6 +93,7 @@ export function EditDish({ onOpenMenu }) {
           "Content-Type": "multipart/form-data",
         },
       })
+      console.log("tentou enviar a imagem", response)
 
       if (response.status !== 200) {
         throw new Error("Erro ao enviar a imagem")
@@ -97,6 +106,8 @@ export function EditDish({ onOpenMenu }) {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
+      setButtonText("enviando dados") // Atualiza o texto do botão
+      /* setLoading(true) */ // Ativa o loading
       const updatedDish = {
         ...dish,
         ingredients: ingredients.map((ingredient) => ingredient.name),
@@ -110,7 +121,11 @@ export function EditDish({ onOpenMenu }) {
       alert("Prato atualizado com sucesso!")
       navigate("/")
     } catch (error) {
+      alert("Erro ao atualizar o prato, alguns detalhes no console!")
       console.error("Erro ao atualizar o prato:", error)
+    } finally {
+      /* setLoading(false) */ // Desativa o loading
+      setButtonText("salvar alterações") // Restaura o texto do botão
     }
   }
 
@@ -226,7 +241,7 @@ export function EditDish({ onOpenMenu }) {
               title="excluir prato"
               onClick={handleDelete}
             />
-            <Button title="salvar alterações" type="submit" />
+            <Button title={buttonText} type="submit" />
           </div>
         </Form>
       </Section>
