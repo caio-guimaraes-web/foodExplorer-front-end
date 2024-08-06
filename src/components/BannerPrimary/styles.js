@@ -69,6 +69,7 @@ export const Container = styled.div`
       line-height: 140%;
       font-size: 1.5rem;
       z-index: 1;
+      opacity: 0;
 
       @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
         font-size: 2.5rem;

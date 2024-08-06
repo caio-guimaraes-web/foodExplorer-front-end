@@ -55,4 +55,52 @@ export default createGlobalStyle`
   ::-webkit-scrollbar-thumb {
     background-color: #09090A;
   }
+
+  @keyframes flipInX {
+  from {
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+
+  40% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    animation-timing-function: ease-in;
+  }
+
+  60% {
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    opacity: 1;
+  }
+
+  80% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+    opacity: 1;
+  }
+
+  to {
+    transform: perspective(400px);
+    opacity: 1;
+  }
+}
+
+.flipInX {
+  backface-visibility: visible !important;
+  animation: flipInX 1s ease-in-out;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
 `

@@ -8,7 +8,7 @@ export function BannerPrimary() {
         <img src={delicious_food} alt="" />
       </div>
       <div>
-        <h2>Sabores inigualáveis</h2>
+        <h2 className="flipInX">Sabores inigualáveis</h2>
         <h4>Sinta o cuidado do preparo com ingredientes selecionados</h4>
       </div>
     </Container>

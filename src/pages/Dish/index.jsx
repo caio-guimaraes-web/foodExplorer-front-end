@@ -59,7 +59,7 @@ export function Dish({ onOpenMenu }) {
   const totalPrice = (dish.price * count).toFixed(2) // Calcular o preço total
 
   return (
-    <Container>
+    <Container className="fade-in">
       <SideMenu menuOpen={menuOpen} onCloseMenu={() => setMenuOpen(false)} />
       <Header onOpenMenu={() => setMenuOpen(true)} />
       <Section>
@@ -67,7 +67,7 @@ export function Dish({ onOpenMenu }) {
         <div>
           <img src={imageUrl} alt={dish.name} />
         </div>
-        <p>{dish.name}</p>
+        <p className="fade-in">{dish.name}</p>
         <p>{dish.description}</p>
         <section>
           {ingredients.map((ingredient) => (

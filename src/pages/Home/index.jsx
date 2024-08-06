@@ -102,7 +102,7 @@ export function Home({ onOpenMenu }) {
   )
 
   return (
-    <Container>
+    <Container className="fade-in">
       <SideMenu
         menuOpen={menuOpen}
         onCloseMenu={() => setMenuOpen(false)}
