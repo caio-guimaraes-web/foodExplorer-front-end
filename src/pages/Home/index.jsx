@@ -1,3 +1,5 @@
+// src/pages/Home/index.jsx
+import { useLoading } from "../../context/LoadingContext"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Container, Section } from "./styles"
@@ -18,10 +20,10 @@ import "swiper/css/pagination"
 
 // Import Swiper Element
 import { register } from "swiper/element/bundle"
-
 register()
 
 export function Home({ onOpenMenu }) {
+  const { setLoading } = useLoading()
   const [menuOpen, setMenuOpen] = useState(false)
   const [dishes, setDishes] = useState([])
   const [searchResults, setSearchResults] = useState([])
@@ -33,24 +35,29 @@ export function Home({ onOpenMenu }) {
   useEffect(() => {
     const fetchDishes = async () => {
       try {
+        setLoading(true)
         const response = await api.get("/dish")
         setDishes(response.data)
       } catch (error) {
         console.error("Erro ao buscar os pratos:", error)
+      } finally {
+        setLoading(false)
       }
     }
 
     fetchDishes()
-  }, [])
+  }, [setLoading])
 
   const handleSearch = async (term) => {
     try {
-      // Cria uma URL de busca que considera tanto o nome quanto os ingredientes
+      setLoading(true)
       const url = `/dish?name=${term}&ingredients=${term}`
       const response = await api.get(url)
       setSearchResults(response.data)
     } catch (error) {
       console.error("Erro ao buscar os pratos:", error)
+    } finally {
+      setLoading(false)
     }
   }
 
