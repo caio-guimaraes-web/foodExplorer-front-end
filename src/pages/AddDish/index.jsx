@@ -26,6 +26,7 @@ import { Footer } from "../../components/Footer"
 import { api } from "../../services/api" // Importando o componente API
 
 export function AddDish({ onOpenMenu }) {
+  const [buttonText, setButtonText] = useState("criar prato") // Estado para gerenciar o texto do botão
   const navigate = useNavigate()
   const handleBack = () => navigate(`/`)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -134,6 +135,7 @@ export function AddDish({ onOpenMenu }) {
     })
 
     try {
+      setButtonText("enviando dados, aguarde.") // Atualiza o texto do botão
       const response = await api.post("/dish", jsonData, {
         headers: {
           "Content-Type": "application/json",
@@ -154,6 +156,8 @@ export function AddDish({ onOpenMenu }) {
       }
     } catch (error) {
       console.error("Erro ao adicionar prato:", error)
+    } finally {
+      setButtonText("criar prato") // Restaura o texto do botão
     }
   }
 
@@ -274,7 +278,7 @@ export function AddDish({ onOpenMenu }) {
               onChange={handleInputChange}
             />
           </div>
-          <Button title="criar prato" type="submit" />
+          <Button title={buttonText} type="submit" />
         </Form>
       </Section>
       <Footer />
