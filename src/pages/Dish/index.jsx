@@ -1,3 +1,4 @@
+import { useLoading } from "../../context/LoadingContext"
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { Container, Section } from "./styles"
@@ -12,6 +13,7 @@ import { api, getCardImageUrl } from "../../services/api"
 import { useAuth } from "../../hooks/auth"
 
 export function Dish({ onOpenMenu }) {
+  const { setLoading } = useLoading()
   const [menuOpen, setMenuOpen] = useState(false)
   const [dish, setDish] = useState(null)
   const [ingredients, setIngredients] = useState([])
@@ -31,6 +33,7 @@ export function Dish({ onOpenMenu }) {
   useEffect(() => {
     const fetchDishData = async () => {
       try {
+        setLoading(true)
         const dishResponse = await api.get(`/dish/${id}`)
         setDish(dishResponse.data)
 
@@ -38,6 +41,8 @@ export function Dish({ onOpenMenu }) {
         setIngredients(ingredientsResponse.data)
       } catch (error) {
         console.error("Erro ao buscar os dados do prato e ingredientes:", error)
+      } finally {
+        setLoading(false)
       }
     }
 
