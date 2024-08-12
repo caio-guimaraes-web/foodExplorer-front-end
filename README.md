@@ -7,6 +7,7 @@
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-repos">Repositórios</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#memo-licença">Licença</a>
 </p>
 
@@ -51,6 +52,11 @@ A etapa de compra não é um requisito da entrega para avaliação e obtenção 
 O layout não foi o foco deste treinamento, sendo assim, recebemos o projeto concluído do ponto de vista de UI.
 
 - [Acesse o layout fornecido pela RocketaSeat](https://www.figma.com/community/file/1196874589259687769)
+
+## repos
+
+- [Front-end](https://github.com/caio-guimaraes-web/foodExplorer-front-end)
+- [Back-end](https://github.com/caio-guimaraes-web/foodExplorer-back-end)
 
 ## Licença
 
